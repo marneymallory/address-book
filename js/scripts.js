@@ -57,15 +57,16 @@ function Contact(firstName, lastName, phoneNumber) {
 // UI LOGIC
 // Helper Functions
 function generateHtmlFor(contact) {
-  let html = `<div class="card">`
-  html += "Name: " + contact.firstName + " " + contact.lastName
-  html += "Phone: " + contact.phoneNumber
-  html += "<div>"
+  let html = `<div class="card row m-1 p-2">`
+  html = html + `<div class="col">Name: ${contact.firstName} ${contact.lastName}</div>`
+  html = html + `<div class="col">Phone: ${contact.phoneNumber}</div>`
+  html = html + "</div>"
+  console.log(html)
   return html
 }
 
 function generateAddressBookHtml(addressBook) {
-  let html = `<div class="container">`
+  let html = `<div class="container m-3 mt-5 p-1">`
   addressBook.contacts.forEach(function(contact) {
     html += generateHtmlFor(contact)
   })
@@ -83,16 +84,20 @@ $(document).ready(function() {
     const lastName = $("#lastName").val()
     const phoneNumber = $("#phoneNumber").val()
 
+    document.querySelector("form").reset()
+
     // now our form is submitted, and we have the value of the 3 inputs...
     // use the input info to create a new contact
     const newContact = new Contact(firstName, lastName, phoneNumber)
     // add that new contact to the address book (myAddressBook)
     console.log(newContact)
-    AddressBook.addContact(newContact)
+    myAddressBook.addContact(newContact)
 
-
+    $(".address").html(generateAddressBookHtml(myAddressBook))
     // const albert = new Contact("albert", "einstein", "1111111")
     // console.log(albert.firstName)
+    console.log(myAddressBook)
+
   })
 })
 
